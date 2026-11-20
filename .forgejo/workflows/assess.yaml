@@ -24,8 +24,7 @@ jobs:
         changed=$(git diff --name-only "$range")
         echo "$changed"
         dispatch() {   # app reason [advisories]
-          jq -n --arg app "$1" --arg reason "$2" --arg adv "${3:-}" \
-            '{ref: "master", inputs: {app: $app, env: "all", reason: $reason, advisories: $adv}}' \
+          python3 -c 'import json,sys;print(json.dumps({"ref":"master","inputs":{"app":sys.argv[1],"env":"all","reason":sys.argv[2],"advisories":sys.argv[3]}}))' "$1" "$2" "${3:-}" \
           | curl -fsS -X POST -H "Authorization: token $TOKEN" -H 'Content-Type: application/json' -d @- \
               "${{ github.server_url }}/api/v1/repos/$PLATFORM/actions/workflows/assess.yaml/dispatches"
           echo "asked $PLATFORM to re-assess $1 ($2)"
@@ -34,5 +33,5 @@ jobs:
         [ -n "$adv" ] && dispatch all "advisory: $adv" "$adv"
         apps=$( { echo "$changed" | sed -n 's#^ledger/\([^/]*\)\.yaml$#\1#p; s#^apps/\([^/]*\)/.*#\1#p'
                   for m in $(echo "$changed" | grep -E '^releases/[^/]+/manifest.json$' || true); do
-                    [ -f "$m" ] && jq -r '.apps[]' "$m"; done; } | sort -u)
+                    [ -f "$m" ] && python3 -c 'import json,sys;print("\n".join(json.load(open(sys.argv[1]))["apps"]))' "$m"; done; } | sort -u)
         for a in $apps; do dispatch "$a" "compliance repo $(git rev-parse --short HEAD)"; done
