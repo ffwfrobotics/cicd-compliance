@@ -1,0 +1,88 @@
+{
+ "schema": "release-package/v1",
+ "id": "demo-20261120T053556Z",
+ "apps": [
+  "demo"
+ ],
+ "environments": [
+  "prod"
+ ],
+ "cluster": "c-local",
+ "state_commit": "20e8739dbada670005d4450057072bf0998e2a80",
+ "prepared_by": "john",
+ "released": "2026-11-20T05:35:56Z",
+ "note": "",
+ "files": {
+  "prod/app.yaml": {
+   "sha256": "77002e94c02a33bc419433bfcee79edb854d96bc06d7ecbe4b30c714655e75d4",
+   "bytes": 1542,
+   "source": "envs/c-local/demo/prod/app.yaml@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/cicd-env.yaml": {
+   "sha256": "d96bbd907ffc786faec2a15fe8ddb5bd5a5175c4b87028ff72dbc7f4b4bd1370",
+   "bytes": 497,
+   "source": "envs/c-local/demo/prod/cicd-env.yaml@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/evidence/assessment-results.json": {
+   "sha256": "dee0139acda081abea870ef989a3061ab8866d3d696cb424763369d480953490",
+   "bytes": 49249,
+   "source": "envs/c-local/demo/prod/evidence/assessment-results.json@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/evidence/assessment-summary.json": {
+   "sha256": "17ac10b3df15b9d2a10d873b22dd674cc6160d234a239750cb26d0ac3572c0c6",
+   "bytes": 23120,
+   "source": "envs/c-local/demo/prod/evidence/assessment-summary.json@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/evidence/ci-result-security.json": {
+   "sha256": "ed780b8d42c22cfc5c6746d72dbd91d3da39b4d4b5dc596e7e38c3d7049ce50b",
+   "bytes": 1294,
+   "source": "envs/c-local/demo/prod/evidence/ci-result-security.json@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/evidence/ci-result-test.json": {
+   "sha256": "1b4b8a95b195d66cf761219b1e6d84adfc5afaaacc92bf45adda3f832b93006e",
+   "bytes": 960,
+   "source": "envs/c-local/demo/prod/evidence/ci-result-test.json@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/evidence/sbom.cdx.json": {
+   "sha256": "2d3e5972e0dffd85d230c892136b167c1fea9854bb26937a544c9c782da03153",
+   "bytes": 639261,
+   "source": "envs/c-local/demo/prod/evidence/sbom.cdx.json@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/evidence/security.json": {
+   "sha256": "66b4816f43d1b162726bfec425e7088bad9eacc15130a08507e65d1ee852bae1",
+   "bytes": 11962,
+   "source": "envs/c-local/demo/prod/evidence/security.json@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/evidence/ssp.json": {
+   "sha256": "84708beb7d72ff4aeb38c4514e99e84641119d8fd7beb39bf9782766ae5ae120",
+   "bytes": 10153,
+   "source": "envs/c-local/demo/prod/evidence/ssp.json@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/findings-source.json": {
+   "sha256": "ba04430ac36c0be4150102b1c78839a099030546bb14f9e7d60beb9b3b19ec1c",
+   "bytes": 3009,
+   "source": "envs/c-local/demo/prod/findings-source.json@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/security-record.json": {
+   "sha256": "723eeb3d03007bf73f371fcadea7d5ec42cb8f9d2aa56e8b9106f719c69b2c98",
+   "bytes": 6403,
+   "source": "envs/c-local/demo/prod/security-record.json@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/suppressions/.gitleaksignore": {
+   "sha256": "a2309a437c2216c5592d840926935e78597f65c7428fbad81b6bba9f217735c0",
+   "bytes": 317,
+   "source": "envs/c-local/demo/prod/suppressions/.gitleaksignore@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/suppressions/policy.yaml": {
+   "sha256": "d5163f2edb96739788eab2521692836dcb797652dd31de16ebf790b6a589423f",
+   "bytes": 554,
+   "source": "envs/c-local/demo/prod/suppressions/policy.yaml@20e8739dbada670005d4450057072bf0998e2a80"
+  },
+  "prod/suppressions/vex.openvex.json": {
+   "sha256": "cb96f8afc81775b0e66998811fa4d67458078d0cb6cb883be23da775a246e583",
+   "bytes": 220,
+   "source": "envs/c-local/demo/prod/suppressions/vex.openvex.json@20e8739dbada670005d4450057072bf0998e2a80"
+  }
+ },
+ "remarks": "Unaltered records from the state repo at state_commit; the release is the merge of this package's pull request by a second person. The owner's self-assessment, not an official one."
+}
