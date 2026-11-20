@@ -1,0 +1,12 @@
+# Announced in cicd-dashboard (cicd-ref-arch docs/oscal.md).
+id: EXERCISE-0001
+title: 'Exercise: made-up flaw in itsdangerous (not real; removed after the test)'
+severity: high
+package:
+  name: itsdangerous
+  ecosystem: pypi
+  affected: <2.2.1
+  fixed: 2.2.1
+announced: '2026-11-20T04:55:46Z'
+announced_by: ffwfbot
+source: cicd-ref-arch step 5 exercise
