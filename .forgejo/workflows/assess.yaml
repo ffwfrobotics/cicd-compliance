@@ -31,6 +31,10 @@ jobs:
         }
         adv=$(echo "$changed" | grep -E '^advisories/[^/]+\.yaml$' | while read -r f; do [ -f "$f" ] && echo "$f"; done | paste -sd' ' || true)
         [ -n "$adv" ] && dispatch all "advisory: $adv" "$adv"
+        # a withdrawn advisory: re-assess everything (it may have hit anything)
+        if echo "$changed" | grep -E '^advisories/[^/]+\.yaml$' | while read -r f; do [ -f "$f" ] || echo gone; done | grep -q gone; then
+          dispatch all "advisory withdrawn"
+        fi
         apps=$( { echo "$changed" | sed -n 's#^ledger/\([^/]*\)\.yaml$#\1#p; s#^apps/\([^/]*\)/.*#\1#p'
                   for m in $(echo "$changed" | grep -E '^releases/[^/]+/manifest.json$' || true); do
                     [ -f "$m" ] && python3 -c 'import json,sys;print("\n".join(json.load(open(sys.argv[1]))["apps"]))' "$m"; done; } | sort -u)
