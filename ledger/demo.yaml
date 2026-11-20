@@ -1,0 +1,36 @@
+# IT Security's findings for demo, as tests (cicd-ref-arch docs/oscal.md). Written by
+# cicd-dashboard as the person who imported, accepted or closed them; edit by hand too.
+app: demo
+findings:
+- id: TEN-990001-b3426e
+  title: gunicorn < 25.0 Unsupported Version (demo)
+  severity: high
+  location: demo.c-local.k.ffwf.net:443
+  check:
+    type: package
+    name: gunicorn
+    affected: <25.0
+  status: open
+  solution: Upgrade gunicorn to 25.0 or later.
+  source:
+    kind: tenable-csv
+    plugin: '990001'
+    file: it-security-scan-demo.csv
+    imported_by: ffwfbot
+    imported_at: '2026-11-20T04:45:35Z'
+- id: TEN-142960-b3426e
+  title: HSTS Missing From HTTPS Server (RFC 6797)
+  severity: medium
+  location: demo.c-local.k.ffwf.net:443
+  check:
+    type: endpoint
+    path: /
+    header: Strict-Transport-Security
+  status: open
+  solution: Configure the remote web server to use HSTS.
+  source:
+    kind: tenable-csv
+    plugin: '142960'
+    file: it-security-scan-demo.csv
+    imported_by: ffwfbot
+    imported_at: '2026-11-20T04:45:35Z'
