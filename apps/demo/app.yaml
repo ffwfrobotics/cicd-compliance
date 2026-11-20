@@ -1,0 +1,23 @@
+# The demo application as its owner describes it to IT Security. Read by cicd-ref-arch (tools/
+# oscal.py ssp) and by the dashboard.
+name: demo
+tenant: ffwf
+title: cicd demo guestbook
+description: A Flask guestbook used to demonstrate cicd-ref-arch; entries are kept in memory only.
+repos: [ffwf/cicd-demo-app]
+profile: profiles/cicd-demo.json
+impact: low
+sensitivity: low
+information:
+  title: Guestbook entries
+  description: Names and short messages typed in by visitors; not persisted, lost when the app scales to zero.
+boundary: The demo's dev, branch and prod environments on c-local, built and deployed by cicd-ref-arch.
+# who may release packages to IT Security (akb #456): "second-person" (anyone with merge rights
+# on the app's repos, other than the one who prepared it) or "approvers" (the named people only)
+release:
+  rule: second-person
+  approvers: []
+# prod promotions need a current self-assessment with no unsatisfied objective that blocks
+# (findings, external findings); uncovered objectives are shown, not blocking
+promotion:
+  require_assessment: true

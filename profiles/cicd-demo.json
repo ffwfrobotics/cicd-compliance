@@ -1,0 +1,32 @@
+{
+ "profile": {
+  "uuid": "9156d995-ee59-545b-9d35-ace837506069",
+  "metadata": {
+   "title": "cicd-ref-arch demo profile: six controls over NIST SP 800-53 Rev 5",
+   "last-modified": "2026-11-20T00:00:00Z",
+   "version": "1",
+   "oscal-version": "1.2.3",
+   "remarks": "CM-2, CM-8, RA-5, SA-11, SI-2 and IA-5(7): the controls the pipeline produces evidence for (akb #448)."
+  },
+  "imports": [
+   {
+    "href": "../catalogs/nist-800-53r5-excerpt.json",
+    "include-controls": [
+     {
+      "with-ids": [
+       "cm-2",
+       "cm-8",
+       "ra-5",
+       "sa-11",
+       "si-2",
+       "ia-5.7"
+      ]
+     }
+    ]
+   }
+  ],
+  "merge": {
+   "as-is": true
+  }
+ }
+}

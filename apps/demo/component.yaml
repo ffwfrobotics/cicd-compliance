@@ -1,0 +1,20 @@
+# Layer 3 of 3: the owner's sysadmin layer for demo. Statements the pipeline can't make, kept by the
+# owner's sysadmins; nothing here needs a change in the app's repo (tools/oscal.py in cicd-ref-arch).
+component: demo-owner
+title: demo, as operated by its owner
+type: this-system
+description: What the demo's owner does around the pipeline.
+objectives:
+  cm-2_obj.b.1:
+    statement: The baseline (manifests, base image digests, pinned dependencies) is reviewed at every promotion and at least quarterly.
+    evidence:
+    - {kind: attested, name: baseline-review, by: john, at: 2026-11-20, expires: 2027-02-20, note: reviewed with the 0.2.1 promotion}
+  cm-2_obj.b.2:
+    statement: The baseline is reviewed after a security advisory affecting it, and when the platform changes its floor.
+    evidence:
+    - {kind: attested, name: baseline-review-triggers, by: john, at: 2026-11-20, expires: 2027-11-20}
+  sa-11_obj.a-1:
+    statement: The assessment plan is this SSP's evidence selectors, kept in git and reviewed with the owner.
+    evidence:
+    - {kind: attested, name: assessment-plan, by: john, at: 2026-11-20, expires: 2027-11-20, note: platform, app and sysadmin layers}
+  # sa-11_obj.a-3 and a-4 (privacy assessments): no plan yet; left uncovered on purpose
