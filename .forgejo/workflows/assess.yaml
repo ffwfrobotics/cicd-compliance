@@ -1,0 +1,38 @@
+# A change here asks the platform (cicd-ref-arch) to re-assess what it affects, without rebuilds:
+#   ledger/<app>.yaml            -> every environment of that app (IT Security's findings changed)
+#   advisories/<id>.yaml         -> only environments whose SBOM has an affected package
+#   apps/<app>/**, releases/**   -> that app (its sysadmin layer, or a release to IT Security)
+name: assess
+on:
+  push:
+    branches: [main]
+    paths: [ledger/**, advisories/**, apps/**, releases/**]
+
+jobs:
+  dispatch:
+    runs-on: ffwf-k8s
+    steps:
+    - uses: actions/checkout@v4
+      with: {fetch-depth: 0, persist-credentials: false}
+    - env:
+        TOKEN: ${{ secrets.CICD_BOT_TOKEN }}
+        BEFORE: ${{ github.event.before }}
+        PLATFORM: ffwf/cicd-ref-arch
+      run: |
+        set -eu
+        if git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then range="$BEFORE..HEAD"; else range="HEAD~1..HEAD"; fi
+        changed=$(git diff --name-only "$range")
+        echo "$changed"
+        dispatch() {   # app reason [advisories]
+          jq -n --arg app "$1" --arg reason "$2" --arg adv "${3:-}" \
+            '{ref: "master", inputs: {app: $app, env: "all", reason: $reason, advisories: $adv}}' \
+          | curl -fsS -X POST -H "Authorization: token $TOKEN" -H 'Content-Type: application/json' -d @- \
+              "${{ github.server_url }}/api/v1/repos/$PLATFORM/actions/workflows/assess.yaml/dispatches"
+          echo "asked $PLATFORM to re-assess $1 ($2)"
+        }
+        adv=$(echo "$changed" | grep -E '^advisories/[^/]+\.yaml$' | while read -r f; do [ -f "$f" ] && echo "$f"; done | paste -sd' ' || true)
+        [ -n "$adv" ] && dispatch all "advisory: $adv" "$adv"
+        apps=$( { echo "$changed" | sed -n 's#^ledger/\([^/]*\)\.yaml$#\1#p; s#^apps/\([^/]*\)/.*#\1#p'
+                  for m in $(echo "$changed" | grep -E '^releases/[^/]+/manifest.json$' || true); do
+                    [ -f "$m" ] && jq -r '.apps[]' "$m"; done; } | sort -u)
+        for a in $apps; do dispatch "$a" "compliance repo $(git rev-parse --short HEAD)"; done
